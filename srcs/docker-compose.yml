@@ -14,6 +14,6 @@ services:
 volumes:
   data_db:
     driver : local
-    driver_opts:
-      type: none
-      o: bind
+    # driver_opts:
+    #   type: none
+    #   o: bind

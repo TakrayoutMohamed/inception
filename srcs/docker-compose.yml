@@ -2,8 +2,8 @@ version: "3"
 services:
   alva_mariadb_img:
     build: ./requirements/mariadb/
-    container_name: alva_cont_db
     image: alva_img_db
+    container_name: alva_cont_db
     env_file: 
       - .env
     restart : always

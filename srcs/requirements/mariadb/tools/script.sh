@@ -1,39 +1,16 @@
 #!/bin/bash
 
-service mysql start
-
 sed -i 's/bind-address = 127.0.0.1/bind-address=0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+service mysql start
+mysql -u root <<EOF 2> /dev/null
+    CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
+    CREATE USER IF NOT EXISTS $MYSQL_USER@'%' IDENTIFIED BY $MYSQL_PASSWORD;
+    GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO $MYSQL_USER@'%';
+    FLUSH PRIVILEGES;
+EOF
 
-mysql -u root -p$MYSQL_ROOTPASSWORD -e "create database if not exists $MYSQL_DATABASE;"
+mysql -u root -e "ALTER USER 'root'@'localhost' identified by $MYSQL_ROOTPASSWORD;"
 
-mysql -u root -p$MYSQL_ROOTPASSWORD -e "create user if not exists $MYSQL_USER@'%' identified by $MYSQL_PASSWORD;"
+mysqladmin -u root -p$MYSQL_ROOTPASSWORD shutdown
 
-mysql -u root -p$MYSQL_ROOTPASSWORD -e "grant all privileges on ${MYSQL_DATABASE}.* TO $MYSQL_USER@'%';"
-
-mysql -u root -p$MYSQL_ROOTPASSWORD -e "flush privileges;"
-
-mysql -u root -p$MYSQL_ROOTPASSWORD -e "alter user 'root'@'localhost' identified by '$MYSQL_ROOTPASSWORD';"
-
-kill 'cat /var/run/mysqld/mysqld.pid'
-
-echo "the symbole means {$@}";
-exec "$@"
-
-
-
-# mysqld_safe &
-
-# sleep 3
-
-# mariadb -u root <<EOF
-# CREATE DATABASE $DB_NAME;
-# CREATE USER $MARIA_DB_USER@'%' IDENTIFIED BY '$MARIA_DB_USER_PASSWORD';
-# GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO $MARIA_DB_USER@'%';
-# FLUSH PRIVILEGES;
-# EOF
-
-# mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MARIA_DB_ROOT_PASSWORD';"
-
-# mysqladmin -u root -p$MARIA_DB_ROOT_PASSWORD shutdown
-
-# mysqld_safe
+mysqld_safe

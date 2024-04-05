@@ -10,9 +10,28 @@ services:
     expose :
       - '3306'
     volumes:
-      - data_db:/var/lib/mysql
+      - DB:/var/lib/mysql
+  alva_nginx_img:
+    build : ./requirements/nginx/
+    image : alva_img_nginx
+    container_name: alva_cont_nginx
+    env_file:
+      - .env
+    restart : on-failure
+    ports: 
+      - '443:443'
+    expose : 
+      - 443
+    volumes :
+      - WordPress:/var/www/html/
 volumes:
-  data_db:
+  DB:
+    driver : local
+    # driver_opts:                             #********************
+    #   o: bind                                #i should remove commets in vm
+    #   type: none                             #********************
+    #   device: /home/mohtakra/Desktop/data/db #********************
+  WordPress:
     driver : local
     # driver_opts:                             #********************
     #   o: bind                                #i should remove commets in vm

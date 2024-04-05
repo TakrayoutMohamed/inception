@@ -1,6 +1,6 @@
 FROM debian:buster
 
-RUN apt update && apt-get install nginx -y  && apt-get install OpenSSL -y
+RUN apt update && apt-get install nginx -y  && apt-get install openssl -y
 
 # RUN mkdir -p /etc/nginx/ssl
 
@@ -11,8 +11,8 @@ COPY tools/script.sh /tmp/
 
 RUN chmod +x /tmp/script.sh
 
-ENTRYPOINT ["./tmp/script.sh"]
+ENTRYPOINT ["/tmp/script.sh"]
 
-EXPOSE 443
+# EXPOSE 443
 
 CMD [ "nginx", "-g", "daemon off;" ]

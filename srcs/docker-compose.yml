@@ -8,9 +8,11 @@ services:
       - .env
     restart : always
     expose :
-      - '3306'
+      - 3306
     volumes:
       - DB:/var/lib/mysql
+    networks:
+      - net
   alva_nginx_img:
     build : ./requirements/nginx/
     image : alva_img_nginx
@@ -19,11 +21,28 @@ services:
       - .env
     restart : on-failure
     ports: 
-      - '443:443'
+      - 443:443
     expose : 
-      - '443'
+      - 443
     volumes :
       - WordPress:/var/www/html/
+    networks:
+      - net
+  alva_wp_img:
+    build : ./requirements/wordpress/
+    image : alva_img_wp
+    container_name: alva_cont_wp
+    env_file:
+      - .env
+    restart : on-failure
+    ports: 
+      - 9000:9000
+    expose : 
+      - 9000
+    volumes :
+      - WordPress:/var/www/html/
+    networks:
+      - net
 volumes:
   DB:
     driver : local
@@ -36,4 +55,8 @@ volumes:
     # driver_opts:                             #********************
     #   o: bind                                #i should remove commets in vm
     #   type: none                             #********************
-    #   device: /home/mohtakra/Desktop/data/db #********************
+    #   device: /home/mohtakra/Desktop/data/wordpress #********************
+
+networks :
+  net:
+    driver : bridge

@@ -7,7 +7,9 @@ services:
     env_file: 
       - .env
     restart : always
-    expose :
+    ports:
+      - "3306:3306"
+    expose:
       - 3306
     volumes:
       - DB:/var/lib/mysql
@@ -21,7 +23,7 @@ services:
       - .env
     restart : always
     ports: 
-      - 443:443
+      - "443:443"
     expose : 
       - 443
     volumes :

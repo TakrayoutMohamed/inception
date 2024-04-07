@@ -21,7 +21,7 @@ wp config set SERVER_PORT 3306 --allow-root
 wp config set DB_NAME $MYSQL_DATABASE --allow-root --path=/var/www/html/wordpress
 wp config set DB_USER $MYSQL_USER --allow-root --path=/var/www/html/wordpress
 wp config set DB_PASSWORD $MYSQL_PASSWORD --allow-root --path=/var/www/html/wordpress
-wp config set DB_HOST 'mariadb:3306' --allow-root --path=/var/www/html/wordpress
+wp config set DB_HOST 'alva_cont_db:3306' --allow-root --path=/var/www/html/wordpress
 
 # INSTALL WORDPRESS 
 wp core install --url=$DOMAIN_NAME --title=INCEPTION --admin_user=$WPADMIN_USER --admin_password=$WPADMIN_PASSWORD --admin_email=$WPADMIN_EMAIL --allow-root --path=/var/www/html/wordpress

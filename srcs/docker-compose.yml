@@ -1,18 +1,18 @@
 version: "3.7"
 services:
-  alva_mariadb_img:
-    build: ./requirements/mariadb/
-    image: alva_img_db
-    container_name: alva_cont_db
-    env_file: 
-      - .env
-    restart : always
-    expose :
-      - 3306
-    volumes:
-      - DB:/var/lib/mysql
-    networks:
-      - net
+  # alva_mariadb_img:
+  #   build: ./requirements/mariadb/
+  #   image: alva_img_db
+  #   container_name: alva_cont_db
+  #   env_file: 
+  #     - .env
+  #   restart : always
+  #   expose :
+  #     - 3306
+  #   volumes:
+  #     - DB:/var/lib/mysql
+  #   networks:
+  #     - net
   alva_nginx_img:
     build : ./requirements/nginx/
     image : alva_img_nginx
@@ -28,21 +28,21 @@ services:
       - WordPress:/var/www/html/
     networks:
       - net
-  alva_wp_img:
-    build : ./requirements/wordpress/
-    image : alva_img_wp
-    container_name: alva_cont_wp
-    env_file:
-      - .env
-    restart : on-failure
-    ports: 
-      - 9000:9000
-    expose : 
-      - 9000
-    volumes :
-      - WordPress:/var/www/html/
-    networks:
-      - net
+  # alva_wp_img:
+  #   build : ./requirements/wordpress/
+  #   image : alva_img_wp
+  #   container_name: alva_cont_wp
+  #   env_file:
+  #     - .env
+  #   restart : on-failure
+  #   ports: 
+  #     - 9000:9000
+  #   expose : 
+  #     - 9000
+  #   volumes :
+  #     - WordPress:/var/www/html/
+  #   networks:
+  #     - net
 volumes:
   DB:
     driver : local

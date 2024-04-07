@@ -1,18 +1,23 @@
-FROM debian:buster
+# base image
+FROM    debian:buster
 
-RUN apt update && apt-get install nginx -y  && apt-get install openssl -y
+# install php and php-curl and php-mysql and php7.3-fpm and curl and sendmail
+RUN apt update && apt install -y php php-curl php-mysql\
+    && apt install -y php7.3-fpm \
+    && apt install -y curl \
+    && apt install -y sendmail
 
-# RUN mkdir -p /etc/nginx/ssl
+# create the /run/php/ used for storing session data, temporary files, or other types of data that is generated and used by PHP while it's running
+RUN mkdir -p /run/php/
 
-RUN openssl req -x509 -nodes -out /etc/ssl/certs/nginx-selfsigned.crt -keyout /etc/ssl/private/nginx-selfsigned.key -subj "/C=MA/L=KHOURIBGA/O=mohtakra.1337.ma/CN=mohtakra/UID=mohtakra"
+# copy the script.sh into the container
+COPY ./tools/script.sh /tmp/script.sh
 
-COPY conf/nginx.conf /tmp/
-COPY tools/script.sh /tmp/
-
+# change the permission of script.sh
 RUN chmod +x /tmp/script.sh
 
-ENTRYPOINT ["/tmp/script.sh"]
+# run the script.sh
+ENTRYPOINT [ "/tmp/script.sh" ]
 
-EXPOSE 9000
-
-CMD [ "nginx", "-g", "daemon off;" ]
+# PHP-FPM to run in the foreground, that is, to not fork into the background as a daemon. This makes it so that the process will run and output any logs to the console where it was started.
+CMD [ "php-fpm7.3", "-F" ]

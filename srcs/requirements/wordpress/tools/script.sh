@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# sleep 7
+
+sed -i 's/listen =.*/listen = 9000/' /etc/php/7.3/fpm/pool.d/www.conf
+
 # download wp-cli : a command-line tool for managing wordpress installations 
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 

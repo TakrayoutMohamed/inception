@@ -3,9 +3,10 @@ FROM    debian:buster
 
 # install php and php-curl and php-mysql and php7.3-fpm and curl and sendmail
 RUN apt update && apt install -y php php-curl php-mysql\
-    && apt install -y php7.3-fpm \
-    && apt install -y curl \
-    && apt install -y sendmail
+    && apt install -y php7.3-fpm 
+
+RUN sed -i 's#listen = /run/php/php7.4-fpm.sock#listen = 0.0.0.0:9000#' /etc/php/7.4/fpm/pool.d/www.conf
+
 
 # create the /run/php/ used for storing session data, temporary files, or other types of data that is generated and used by PHP while it's running
 RUN mkdir -p /run/php/

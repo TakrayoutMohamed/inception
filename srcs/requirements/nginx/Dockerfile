@@ -13,6 +13,6 @@ RUN chmod +x /tmp/script.sh
 
 ENTRYPOINT ["/tmp/script.sh"]
 
-# EXPOSE 443
+EXPOSE 9000
 
 CMD [ "nginx", "-g", "daemon off;" ]

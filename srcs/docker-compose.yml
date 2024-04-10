@@ -3,14 +3,14 @@ services:
   alva_mariadb_img:
     build: ./requirements/mariadb/
     image: alva_img_db
-    container_name: alva_cont_db
+    container_name: mariadb
     env_file: 
       - .env
     restart : always
-    ports:
-      - "3306:3306"
-    expose:
-      - 3306
+    # ports:
+    #   - "3309:3306"
+    # expose:
+    #   - 3306
     volumes:
       - DB:/var/lib/mysql
     networks:
@@ -18,7 +18,7 @@ services:
   alva_nginx_img:
     build : ./requirements/nginx/
     image : alva_img_nginx
-    container_name: alva_cont_nginx
+    container_name: nginx
     env_file:
       - .env
     restart : always
@@ -33,7 +33,7 @@ services:
   alva_wp_img:
     build : ./requirements/wordpress/
     image : alva_img_wp
-    container_name: alva_cont_wp
+    container_name: wordpress
     env_file:
       - .env
     restart : always

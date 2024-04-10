@@ -17,11 +17,11 @@ up_d :
 	$(CHANGEDIR) $(WRKDIR) && $(DOCKER_COMPOSE_UP) --detach
 	
 exec_db:
-	$(CHANGEDIR) $(WRKDIR) && docker exec -it alva_cont_db bash
+	$(CHANGEDIR) $(WRKDIR) && docker exec -it mariadb bash
 exec_nginx:
 	$(CHANGEDIR) $(WRKDIR) && docker exec -it alva_cont_nginx bash
 exec_wp:
-	$(CHANGEDIR) $(WRKDIR) && docker exec -it alva_cont_wp bash
+	$(CHANGEDIR) $(WRKDIR) && docker exec -it wordpress bash
 
 clean : 
 	$(CHANGEDIR) $(WRKDIR) && $(DOCKER_COMPOSE_DOWN)

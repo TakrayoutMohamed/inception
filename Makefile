@@ -19,7 +19,7 @@ up_d :
 exec_db:
 	$(CHANGEDIR) $(WRKDIR) && docker exec -it mariadb bash
 exec_nginx:
-	$(CHANGEDIR) $(WRKDIR) && docker exec -it alva_cont_nginx bash
+	$(CHANGEDIR) $(WRKDIR) && docker exec -it nginx bash
 exec_wp:
 	$(CHANGEDIR) $(WRKDIR) && docker exec -it wordpress bash
 
@@ -27,5 +27,5 @@ clean :
 	$(CHANGEDIR) $(WRKDIR) && $(DOCKER_COMPOSE_DOWN)
 
 fclean : clean
-	$(CHANGEDIR) $(WRKDIR) && docker system prune --all --volumes --force
+	$(CHANGEDIR) $(WRKDIR) && $(DOCKER_COMPOSE_DOWN) -v && docker system prune --all --volumes --force
 re : fclean all

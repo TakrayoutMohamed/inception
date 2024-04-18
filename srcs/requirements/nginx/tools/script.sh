@@ -14,10 +14,10 @@ echo "
 echo '
     location ~ \.php$ {
         fastcgi_pass wordpress:9000; 
-        # fastcgi_index index.php;
-        fastcgi_param SCRIPT_FILENAME /var/www/html/$fastcgi_script_name;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param PATH_INFO $fastcgi_path_info;
-        include snippets/fastcgi-php.conf;
+        # include snippets/fastcgi-php.conf;
         include fastcgi_params;
     }
     

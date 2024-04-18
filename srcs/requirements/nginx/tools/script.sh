@@ -3,27 +3,27 @@
 echo "
  server  {
     listen 443 ssl;
-    ssl_protocols TLSv1.2;
-    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+    ssl_protocols TLSv1.3 ;
+    ssl_certificate $CERTS_;
+    ssl_certificate_key $KEYS_;
 
-    root /var/www/html;
+    root /var/www/$DOMAIN_NAME/wordpress;
     index index.php;
     server_name $DOMAIN_NAME;
-" >> /etc/nginx/sites-enabled/default
+" > /etc/nginx/sites-enabled/wordpress
 echo '
-    location ~ .php$ {
-        try_files $uri =404;
+    location ~ \.php$ {
         fastcgi_pass wordpress:9000; 
-        fastcgi_index index.php;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        # fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME /var/www/html/$fastcgi_script_name;
         fastcgi_param PATH_INFO $fastcgi_path_info;
+        include snippets/fastcgi-php.conf;
+        include fastcgi_params;
     }
     
     location / {
         try_files $uri $uri/ =404;
     }
-} ' >> /etc/nginx/sites-enabled/default
+} ' >> /etc/nginx/sites-enabled/wordpress
 
 exec "$@"

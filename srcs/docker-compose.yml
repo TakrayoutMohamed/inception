@@ -1,4 +1,4 @@
-version: "3.7"
+version: "2"
 services:
   alva_mariadb_img:
     build: ./requirements/mariadb/
@@ -7,10 +7,10 @@ services:
     env_file: 
       - .env
     restart : always
-    # ports:
-    #   - "3309:3306"
-    # expose:
-    #   - 3306
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
     volumes:
       - DB:/var/lib/mysql
     networks:
@@ -23,9 +23,11 @@ services:
       - .env
     restart : always
     ports: 
-      - "443:443"
+      - 443:443
     expose : 
       - 443
+    depends_on :
+      - alva_wp_img
     volumes :
       - WordPress:/var/www/html/
     networks:
@@ -37,6 +39,12 @@ services:
     env_file:
       - .env
     restart : always
+    depends_on :
+      - alva_mariadb_img
+    expose : 
+      - 9000
+    ports : 
+      - 9000:9000
     volumes :
       - WordPress:/var/www/html/
     networks:

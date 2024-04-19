@@ -1,7 +1,7 @@
 # base image
 FROM    debian:buster
 # RUN apt update -y && apt install -y php7.3 curl sendmail wget && apt install php7.3-fpm php7.3-cli php7.3-mysql php7.3-curl php7.3-json -y
-RUN apt update -y && apt install -y php php-curl php-gd php-intl php-mbstring php-soap php-xml php-xmlrpc php-zip php-mysql && apt install -y php7.3-fpm && apt install -y curl && apt install -y sendmail
+RUN apt update && apt install -y php php-curl php-mysql && apt install -y php7.3-fpm && apt install -y curl && apt install -y sendmail
 
 # RUN sed -i 's#listen = /run/php/php7.3-fpm.sock#listen = 0.0.0.0:9000#' /etc/php/7.3/fpm/pool.d/www.conf
 

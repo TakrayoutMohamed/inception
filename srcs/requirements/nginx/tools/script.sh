@@ -3,14 +3,15 @@
 echo "
  server  {
     listen 443 ssl;
+    # ssl on;
     ssl_protocols TLSv1.3 ;
     ssl_certificate $CERTS_;
     ssl_certificate_key $KEYS_;
 
-    root /var/www/$DOMAIN_NAME/wordpress;
+    root /var/www/html;
     index index.php;
     server_name $DOMAIN_NAME;
-" > /etc/nginx/sites-enabled/wordpress
+" > /etc/nginx/sites-enabled/default
 echo '
     location ~ \.php$ {
         fastcgi_pass wordpress:9000; 
@@ -24,6 +25,6 @@ echo '
     location / {
         try_files $uri $uri/ =404;
     }
-} ' >> /etc/nginx/sites-enabled/wordpress
+} ' >> /etc/nginx/sites-enabled/default
 
 exec "$@"

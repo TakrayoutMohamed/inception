@@ -9,11 +9,12 @@ curl -LO https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 mkdir -p /var/www/html
 chown -R www-data:www-data /var/www/html
 chmod -R 755 /var/www/html
-chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
+chmod +x wp-cli.phar
 
+mv wp-cli.phar /usr/local/bin/wp
 # download wordpress 
 cd /var/www/html
-wp core download --allow-root
+wp core download --allow-root --path=/var/www/html
 
 # apt install zip -y
 # cd /var/www/
@@ -33,7 +34,7 @@ wp core download --allow-root
 #configure wordpress
 mv wp-config-sample.php wp-config.php 
 curl -s https://api.wordpress.org/secret-key/1.1/salt/
-sed -i '36 s/\/run\/php\/php7.3-fpm.sock/9000/' /etc/php/7.3/fpm/pool.d/www.conf
+sed -i 's#listen = /run/php/php7.3-fpm.sock#listen = 0.0.0.0:9000#' /etc/php/7.3/fpm/pool.d/www.conf
 
 wp config set SERVER_PORT 3306 --allow-root
 
@@ -47,7 +48,7 @@ wp config set DB_HOST 'mariadb' --allow-root
 # wp config set WP_CACHE 'true' --allow-root
 
 # INSTALL WORDPRESS 
-wp core install --url=$DOMAIN_NAME --title="tst Website" --admin_user=$WPADMIN_USER --admin_password=$WPADMIN_PASSWORD --admin_email=$WPADMIN_EMAIL --allow-root
+wp core install --url=$DOMAIN_NAME --title="tst Website" --admin_user=$WPADMIN_USER --admin_password=$WPADMIN_PASSWORD --admin_email=$WPADMIN_EMAIL --allow-root --path=/var/www/html
 wp user create $WPUSER $WPUSER_EMAIL --role=author --user_pass=$WPUSER_PASSWORD --allow-root
 
 exec "$@"

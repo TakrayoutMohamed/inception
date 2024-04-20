@@ -43,7 +43,12 @@ wp config set DB_PASSWORD $MYSQL_PASSWORD --allow-root
 wp config set DB_HOST 'mariadb' --allow-root
 
 # INSTALL WORDPRESS 
-wp core install --url=$DOMAIN_NAME --locale=en_US --title=$SITE_TITLE --admin_user=$WPADMIN_USER --admin_password=$WPADMIN_PASSWORD --admin_email=$WPADMIN_EMAIL --allow-root
-wp user create $WPUSER $WPUSER_EMAIL --role=author --user_pass=$WPUSER_PASSWORD --allow-root
+if ! wp core is-installed 2&gt;/dev/null; then
+    # WP is not installed. Let's try installing it.
+    wp core install --url=$DOMAIN_NAME --locale=en_US --title=$SITE_TITLE --admin_user=$WPADMIN_USER --admin_password=$WPADMIN_PASSWORD --admin_email=$WPADMIN_EMAIL --allow-root
+    wp user create $WPUSER $WPUSER_EMAIL --role=author --user_pass=$WPUSER_PASSWORD --allow-root
+else
+    echo 'Wordpress already installed !'
+fi
 
 exec "$@"

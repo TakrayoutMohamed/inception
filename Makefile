@@ -27,5 +27,5 @@ clean :
 	$(CHANGEDIR) $(WRKDIR) && $(DOCKER_COMPOSE_DOWN)
 
 fclean : clean
-	$(CHANGEDIR) $(WRKDIR) && $(DOCKER_COMPOSE_DOWN) -v && docker system prune --all
+	$(CHANGEDIR) $(WRKDIR) && $(DOCKER_COMPOSE_DOWN) -v && docker system prune --all --force
 re : fclean all

@@ -7,10 +7,6 @@ services:
     env_file: 
       - .env
     restart : always
-    # ports:
-    #   - 3306:3306
-    # expose:
-    #   - 3306
     volumes:
       - DB:/var/lib/mysql
     networks:
@@ -41,10 +37,6 @@ services:
     restart : always
     depends_on :
       - alva_mariadb_img
-    # expose : 
-    #   - 9000
-    # ports : 
-    #   - 9000:9000
     volumes :
       - WordPress:/var/www/html/
     networks:

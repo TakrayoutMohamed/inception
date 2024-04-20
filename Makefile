@@ -1,8 +1,8 @@
 WRKDIR = ./srcs/
 CHANGEDIR = cd 
-DOCKER_COMPOSE_BUILD = docker-compose build
-DOCKER_COMPOSE_DOWN = docker-compose down
-DOCKER_COMPOSE_UP = docker-compose up
+DOCKER_COMPOSE_BUILD = docker compose build
+DOCKER_COMPOSE_DOWN = docker compose down
+DOCKER_COMPOSE_UP = docker compose up
 
 all:  
 	$(CHANGEDIR) $(WRKDIR) && $(DOCKER_COMPOSE_UP) --build --detach
@@ -27,5 +27,5 @@ clean :
 	$(CHANGEDIR) $(WRKDIR) && $(DOCKER_COMPOSE_DOWN)
 
 fclean : clean
-	$(CHANGEDIR) $(WRKDIR) && $(DOCKER_COMPOSE_DOWN) -v && docker system prune --all --volumes --force
+	$(CHANGEDIR) $(WRKDIR) && $(DOCKER_COMPOSE_DOWN) -v && docker system prune --all
 re : fclean all

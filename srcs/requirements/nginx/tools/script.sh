@@ -3,8 +3,7 @@
 echo "
  server  {
     listen 443 ssl;
-    ssl on;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_protocols TLSv1.2;
     ssl_certificate $CERTS_;
     ssl_certificate_key $KEYS_;
 

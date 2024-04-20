@@ -1,34 +1,17 @@
 #!/bin/bash
 
-# sleep 8
-
 # download wp-cli : a command-line tool for managing wordpress installations 
 curl -LO https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 mkdir -p /var/www/html
-chown -R www-data:www-data /var/www/
-chmod -R 755 /var/www/
+chown -R www-data:www-data /var/www/html
+chmod -R 755 /var/www/html
 chmod +x wp-cli.phar
 
 mv wp-cli.phar /usr/local/bin/wp
 # download wordpress 
 cd /var/www/html
-wp core download --allow-root --path=/var/www/html
-
-# apt install zip -y
-# cd /var/www/
-# wget https://wordpress.org/latest.tar.gz
-# tar -xzvf latest.tar.gz
-# mv wordpress/* /var/www/html/
-# rm -rf latest.tar.gz wordpress 
-# mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
-# cd /var/www/html
-# wp config set SERVER_PORT 3306 --allow-root
-# wp config set DB_NAME $MYSQL_DATABASE --allow-root --path=/var/www/
-# wp config set DB_USER $MYSQL_USER --allow-root --path=/var/www/
-# wp config set DB_PASSWORD $MYSQL_PASSWORD --allow-root --path=/var/www/
-# wp config set DB_HOST 'mariadb:3306' --allow-root --path=/var/www/
-
+wp core download --allow-root
 
 #configure wordpress
 mv wp-config-sample.php wp-config.php 
@@ -40,15 +23,10 @@ wp config set SERVER_PORT 3306 --allow-root
 wp config set DB_NAME $MYSQL_DATABASE --allow-root
 wp config set DB_USER $MYSQL_USER --allow-root
 wp config set DB_PASSWORD $MYSQL_PASSWORD --allow-root
-wp config set DB_HOST 'mariadb' --allow-root
+wp config set DB_HOST 'mariadb:3306' --allow-root
 
 # INSTALL WORDPRESS 
-if ! wp core is-installed 2&gt;/dev/null; then
-    # WP is not installed. Let's try installing it.
-    wp core install --url=$DOMAIN_NAME --locale=en_US --title=$SITE_TITLE --admin_user=$WPADMIN_USER --admin_password=$WPADMIN_PASSWORD --admin_email=$WPADMIN_EMAIL --allow-root
-    wp user create $WPUSER $WPUSER_EMAIL --role=author --user_pass=$WPUSER_PASSWORD --allow-root
-else
-    echo 'Wordpress already installed !'
-fi
+wp core install --url=$DOMAIN_NAME --locale=en_US --title=$SITE_TITLE --admin_user=$WPADMIN_USER --admin_password=$WPADMIN_PASSWORD --admin_email=$WPADMIN_EMAIL --allow-root
+wp user create $WPUSER $WPUSER_EMAIL --role=author --user_pass=$WPUSER_PASSWORD --allow-root
 
 exec "$@"

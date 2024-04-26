@@ -27,4 +27,8 @@ echo '
 
 echo "127.0.0.1 $DOMAIN_NAME" >> /etc/hosts 
 
-exec "$@"
+nginx -t
+
+service nginx stop
+
+nginx -g "daemon off;"

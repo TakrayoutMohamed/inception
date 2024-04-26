@@ -1,7 +1,7 @@
 # base image
-FROM    debian:buster
-# RUN apt update -y && apt install -y php7.3 curl sendmail wget && apt install php7.3-fpm php7.3-cli php7.3-mysql php7.3-curl php7.3-json -y
-RUN apt update && apt install -y php php-curl php-mysql && apt install -y php7.3-fpm && apt install -y curl && apt install -y sendmail
+FROM    debian:bullseye
+# RUN apt update -y && apt install -y php7.4 curl sendmail wget && apt install php7.4-fpm php7.4-cli php7.4-mysql php7.4-curl php7.4-json -y
+RUN apt update && apt install -y php php-curl php-mysql && apt install -y php7.4-fpm && apt install -y curl && apt install -y sendmail
 
 # /run/php/ to store session data, temporary files, or other types of data that is generated and used by PHP while it's running
 RUN mkdir -p /run/php/
@@ -12,4 +12,4 @@ RUN chmod +x /tmp/script.sh
 
 ENTRYPOINT [ "/tmp/script.sh" ]
 
-CMD [ "php-fpm7.3", "-F" ]
+CMD [ "php-fpm7.4", "-F" ]

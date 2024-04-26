@@ -16,7 +16,7 @@ wp core download --allow-root
 #configure wordpress
 mv wp-config-sample.php wp-config.php 
 curl -s https://api.wordpress.org/secret-key/1.1/salt/
-sed -i 's#listen = /run/php/php7.3-fpm.sock#listen = 0.0.0.0:9000#' /etc/php/7.3/fpm/pool.d/www.conf
+sed -i 's#listen = /run/php/php7.4-fpm.sock#listen = 0.0.0.0:9000#' /etc/php/7.4/fpm/pool.d/www.conf
 
 wp config set SERVER_PORT 3306 --allow-root
 

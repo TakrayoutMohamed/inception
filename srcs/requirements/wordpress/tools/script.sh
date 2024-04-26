@@ -29,4 +29,4 @@ wp config set DB_HOST 'mariadb:3306' --allow-root
 wp core install --url=$DOMAIN_NAME --locale=en_US --title=$SITE_TITLE --admin_user=$WPADMIN_USER --admin_password=$WPADMIN_PASSWORD --admin_email=$WPADMIN_EMAIL --allow-root
 wp user create $WPUSER $WPUSER_EMAIL --role=author --user_pass=$WPUSER_PASSWORD --allow-root
 
-exec "$@"
+php-fpm7.4 -F

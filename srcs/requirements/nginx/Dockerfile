@@ -11,5 +11,3 @@ COPY tools/script.sh /tmp/
 RUN chmod +x /tmp/script.sh
 
 ENTRYPOINT ["/tmp/script.sh"]
-
-# CMD [ "nginx", "-g", "daemon off;" ]

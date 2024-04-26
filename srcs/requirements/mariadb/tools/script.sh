@@ -2,10 +2,12 @@
 
 # change the bind to 0.0.0.0 only accept client connections made to 0.0.0.0 (accept connection to any address)
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
-# sed -i 's/#port/port/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+
 echo "port = 3306"  >> /etc/mysql/mariadb.conf.d/50-server.cnf
 echo "socket = /run/mysqld/mysqld.sock"  >> /etc/mysql/mariadb.conf.d/50-server.cnf
+
 service mariadb start
+
 mysql -u root <<EOF 2> /dev/null
     CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
     CREATE USER IF NOT EXISTS $MYSQL_USER@'%' IDENTIFIED BY '$MYSQL_PASSWORD';

@@ -25,7 +25,7 @@ echo '
     }
 } ' >> /etc/nginx/sites-enabled/default
 
-echo "127.0.0.1 $DOMAIN_NAME" >> /etc/hosts 
+# echo "127.0.0.1 $DOMAIN_NAME" >> /etc/hosts 
 
 nginx -t
 

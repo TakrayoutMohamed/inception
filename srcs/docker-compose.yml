@@ -1,8 +1,8 @@
 version: '2'
 services:
-  alva_mariadb_img:
+  mariadb:
     build: ./requirements/mariadb/
-    image: alva_img_db
+    image: mariadb
     container_name: mariadb
     env_file: 
       - .env
@@ -11,9 +11,9 @@ services:
       - DB:/var/lib/mysql
     networks:
       - net
-  alva_nginx_img:
+  nginx:
     build : ./requirements/nginx/
-    image : alva_img_nginx
+    image : nginx
     container_name: nginx
     env_file:
       - .env
@@ -23,20 +23,20 @@ services:
     expose : 
       - 443
     depends_on :
-      - alva_wp_img
+      - wordpress
     volumes :
       - WordPress:/var/www/html/
     networks:
       - net
-  alva_wp_img:
+  wordpress:
     build : ./requirements/wordpress/
-    image : alva_img_wp
+    image : wordpress
     container_name: wordpress
     env_file:
       - .env
     restart : always
     depends_on :
-      - alva_mariadb_img
+      - mariadb
     volumes :
       - WordPress:/var/www/html/
     networks:

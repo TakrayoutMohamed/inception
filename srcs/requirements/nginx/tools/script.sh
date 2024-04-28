@@ -14,17 +14,11 @@ echo "
     server_name $DOMAIN_NAME;
 " > /etc/nginx/sites-enabled/default
 echo '
-    location / {
-        try_files $uri $uri/ =404;
-    }
-
     location ~ \.php$ {
         fastcgi_pass wordpress:9000;
         include snippets/fastcgi-php.conf;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include fastcgi_params;
     }
-    
+
 } ' >> /etc/nginx/sites-enabled/default
 
 nginx -t

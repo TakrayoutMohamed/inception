@@ -1,7 +1,7 @@
 # base image
 FROM    debian:bullseye
 
-RUN apt update && apt install -y php php-curl php-mysql && apt install -y php7.4-fpm && apt install -y curl && apt install -y sendmail
+RUN apt update && apt install -y curl php php-curl php-mysql php7.4-fpm  sendmail
 
 # /run/php/ to store the PHP pid  while it's running (php7.xxxx-fpm.pid)
 RUN mkdir -p /run/php/

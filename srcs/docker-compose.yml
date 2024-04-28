@@ -44,16 +44,16 @@ services:
 volumes:
   DB:
     driver : local
-    driver_opts:                             #********************
-      o: bind                                #i should remove commets in vm
-      type: none                             #********************
-      device: /home/mohtakra/Desktop/data/db #********************
+    driver_opts:                             
+      o: bind                                
+      type: none                             
+      device: /home/mohtakra/Desktop/data/db 
   WordPress:
     driver : local
-    driver_opts:                             #********************
-      o: bind                                #i should remove commets in vm
-      type: none                             #********************
-      device: /home/mohtakra/Desktop/data/wordpress #********************
+    driver_opts:                             
+      o: bind                                
+      type: none                             
+      device: /home/mohtakra/Desktop/data/wordpress 
 
 networks :
   net:

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+openssl req -x509 -nodes -days 30 -newkey rsa:2048 -out $CERTS_ -keyout $KEYS_ -subj "/C=MA/L=KHOURIBGA/UID=mohtakra"
+
 echo "
  server  {
     listen 443 ssl;
@@ -12,20 +14,18 @@ echo "
     server_name $DOMAIN_NAME;
 " > /etc/nginx/sites-enabled/default
 echo '
-    location ~ \.php$ {
-        fastcgi_pass wordpress:9000;
-        include snippets/fastcgi-php.conf;
-        include fastcgi_params;
-        include scgi_params;
-        scgi_param HTTPS $https if_not_empty;
-    }
-    
     location / {
         try_files $uri $uri/ =404;
     }
-} ' >> /etc/nginx/sites-enabled/default
 
-# echo "127.0.0.1 $DOMAIN_NAME" >> /etc/hosts 
+    location ~ \.php$ {
+        fastcgi_pass wordpress:9000;
+        include snippets/fastcgi-php.conf;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+    
+} ' >> /etc/nginx/sites-enabled/default
 
 nginx -t
 

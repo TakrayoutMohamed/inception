@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# change the bind to 0.0.0.0 only accept client connections made to 0.0.0.0 (accept connection to any address)
+# change the bind to 0.0.0.0 to listen to all hosts
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
-
-echo "port = 3306"  >> /etc/mysql/mariadb.conf.d/50-server.cnf
-echo "socket = /run/mysqld/mysqld.sock"  >> /etc/mysql/mariadb.conf.d/50-server.cnf
 
 service mariadb start
 
